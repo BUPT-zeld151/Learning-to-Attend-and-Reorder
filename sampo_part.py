@@ -111,7 +111,6 @@ class SAMPONet(nn.Module):
         else:
             score_sort_drop_index = score_sort_index[..., :]
         
-        # SAMPONet主网络，按注意力分数排列并裁剪输入ve，最后摊平输出
         score_sort_drop_index = score_sort_drop_index.clone().detach().unsqueeze(-1).repeat(1,1,ve.shape[-1])
         pruned_ve = ve.gather(1, score_sort_drop_index)
         return pruned_ve
